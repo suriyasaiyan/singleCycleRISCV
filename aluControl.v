@@ -13,11 +13,11 @@ module aluControl(
   always @(*) begin
     case ({aluOp, instruction})
       6'b00_xxxx: aluCtl <= ADD; // load and Store
-      6'b01_xxxx: aluCtl <= SUB; // beq or bneq
-      6'b10_0000: aluCtl <= ADD; // R-type instructions
-      6'b10_1000: aluCtl <= SUB;
-      6'b10_0111: aluCtl <= AND;
-      6'b10_0110: aluCtl <= OR;
+      6'bx1_xxxx: aluCtl <= SUB; // beq or bneq
+      6'b1x_0000: aluCtl <= ADD; // R-type instructions
+      6'b1x_1000: aluCtl <= SUB;
+      6'b1x_0111: aluCtl <= AND;
+      6'b1x_0110: aluCtl <= OR;
       default: aluCtl <= ADD; // don't know what to default
     endcase
   end
