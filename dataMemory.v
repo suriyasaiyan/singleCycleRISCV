@@ -14,9 +14,7 @@ module dataMemory
     integer i;
 
     initial begin
-
-        memory[0] = 32'h00000000;
-
+        
         for (i = 1; i < ADDRSIZE; i = i + 1)
             memory[i] = 32'h00000000;
     end
