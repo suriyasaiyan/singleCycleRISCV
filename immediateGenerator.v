@@ -1,14 +1,13 @@
-module immediateGenerator(
-    input [31:0] instruction,
-    output [31:0] immediate
-);
+`include "defines.vh"
 
-    localparam
-       R_type = 7'b0110011,
-       I_type = 7'b0010011,
-       L_type = 7'b0000011,
-       S_type = 7'b0100011,
-       B_type = 7'b1100011;
+module immediateGenerator
+#(
+    parameter INTRSIZE = 32,
+    IMMSIZE = 32
+)(
+    input [INTRSIZE -1:0] instruction,
+    output [IMMSIZE -1:0] immediate
+);
 
     always @(*) begin
 

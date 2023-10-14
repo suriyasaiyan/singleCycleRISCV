@@ -1,22 +1,24 @@
+`inclue "defines.vh"
+
 module alu #(
-    parameter REGSIZE = 64
+    parameter WORDSIZE = 32
 ) (
-    input [REGSIZE-1:0] in1, in2,
+    input [WORDSIZE-1:0] in1, in2,
     input [3:0] ctl,
-    output [REGSIZE-1:0] result,
+    output [WORDSIZE-1:0] result,
     output zero
 );
 
-    function [REGSIZE-1:0] aluOperation (
-        input [REGSIZE-1:0] a,
-        input [REGSIZE-1:0] b,
+    function [WORDSIZE-1:0] aluOperation (
+        input [WORDSIZE-1:0] a,
+        input [WORDSIZE-1:0] b,
         input [3:0] ctl
     );
         case (ctl)
-            4'b0000: return a & b;
-            4'b0001: return a | b;
-            4'b0010: return a + b;
-            4'b0110: return a - b;
+            `AND:    return a & b;
+            `OR:     return a | b;
+            `ADD:    return a + b;
+            `SUB:    return a - b;
             default: return 0;
         endcase
     endfunction

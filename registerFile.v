@@ -1,19 +1,31 @@
+/*registerFile.v
+
+parameters: ADDRSIZE - No of bits to address a registerFile
+            WORDSIZE - size of each register
+
+localparam RFSIZE - no of registers to specify the memory
+
+changes required: need to hardwire reg0 to 0 and we shouldn't be able to access it.
+*/
+
 module registerFile #(
-    parameter ADDRSIZE =32,
-    WORDSIZE =32
+    parameter ADDRSIZE =5, 
+    WORDSIZE = 32
 ) (
     input clk, regWrite, rst, 
-    input [4:0] readReg1, readReg2, writeReg,
-    input [31:0] writeData,
-    output [31:0] readData1, readData2
+    input [ADDRSIZE -1:0] readReg1, readReg2, writeReg,
+    input [WORDSIZE -1:0] writeData,
+    output [WORDSIZE -1:0] readData1, readData2
 );
+    localparam RFSIZE = 1 << 5; // 2^5, regFileSize
     integer i;
-    reg [WORDSIZE -1:0] registerFile [0:ADDRSIZE -1]; //32 regs with 32 bit each
+    reg [WORDSIZE -1:0] registerFile [0:RFSIZE -1]; //32 regs, 32 bit each
 
     initial begin
         
         registerFile[0] = 32'h00000000;
-        for (i = 1; i < ADDRSIZE; i = i + 1) 
+
+        for (i = 1; i < RFSIZE; i = i + 1) 
             registerFile[i] = 32'h00000000;
     end
 
@@ -35,7 +47,7 @@ module registerFile #(
         
     end
 
-    assign readData1 <= registerFile[readReg1];
-    assign readData2 <= registerFile[readReg2];
+    assign readData1 <= registerFile[readReg1_addr];
+    assign readData2 <= registerFile[readReg2_addr];
 
 endmodule
