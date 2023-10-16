@@ -1,6 +1,8 @@
 # singleCycleRISCV
 - Single clock cycle implementation of RISC V
+
 - scalability
+
 - Using a lookup table is a feasible way to optimize this code,especially when the number of instruction types is relatively small
 
 - the following suggestions can be made to optimize the register file usage:
@@ -11,4 +13,5 @@
     Use a register allocator to keep the most frequently used registers in the register file. This can improve performance by reducing the number of times that registers need to be spilled to memory.
     
 - defines.vh 
+
 - `defualt_nettpe none can help catch errors in your Verilog code because it forces you to explicitly specify the data type for each net

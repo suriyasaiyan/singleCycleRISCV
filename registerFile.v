@@ -17,7 +17,7 @@ module registerFile #(
     input [WORDSIZE -1:0] writeData,
     output [WORDSIZE -1:0] readData1, readData2
 );
-    localparam RFSIZE = 1 << 5; // 2^5, regFileSize
+    localparam RFSIZE = 1 << 5; // 2^ADDRSIZE, regFileSize
     integer i;
     reg [WORDSIZE -1:0] registerFile [0:RFSIZE -1]; //32 regs, 32 bit each
 
