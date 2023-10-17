@@ -1,38 +1,28 @@
+// if we write at 1 to 0, we have read it at 1 to 0 at the same cycle #10
+
 module dataMemory
 #(
-    parameter ADDRSIZE = 5, // Number of Locations
-    WORDSIZE = 32 // Size of each location
+    parameter ADDRSIZE = 5, 
+    WORDSIZE = 32 
 )
 (
-    input memRead, memWrite, clk, reset,
+    input memRead, memWrite, clk,
     input [4:0] address,
     input [WORDSIZE -1:0] writeData,
     output reg [WORDSIZE -1:0] readData
 );
-    localparam MEMSIZE = 1 << ADDRSIZE; // 2^ ADDRSIZE; memorySize
+    localparam MEMSIZE = 1 << ADDRSIZE; 
     reg [WORDSIZE - 1:0] memory [0:MEMSIZE - 1];
-    integer i;
 
-    initial begin
-        
-        for (i = 0; i < MEMSIZE; i = i + 1)
-            memory[i] = 32'h00000000;
-    end
+    initial $readmemh("dmem.mem", memory); 
 
-    always @(posedge clk or posedge reset)
-    begin
-        if (reset)
-        begin
-            for (i = 0; i < MEMSIZE; i = i + 1)
-                memory[i] <= 32'h00000000;
-        end
-        else
-        begin
-            if (memRead)
-                readData <= memory[address];
-            if (memWrite)
-                memory[address] <= writeData;
-        end
+    always @(posedge clk) begin
+
+        if (memRead)
+            readData <= memory[address];
+        if (memWrite)
+            memory[address] <= writeData;
+    
     end
 
 endmodule
