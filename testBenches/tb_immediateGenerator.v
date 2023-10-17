@@ -18,9 +18,9 @@ module tb_immediateGenerator;
         else
             $display("Test failed: immediate = %h", immediate);
         
-        instruction = 32'hFFFFFFCE;
+        instruction = 32'b111111001110_00001_000_01110_0000011;
         #10;
-        if (immediate == 32'b11111111111111111111111111001110)
+        if (immediate == 32'hFFFFFFCE)
             $display("Test PASSED: immediate = %h", immediate);
         else
             $display("Test failed: immediate = %h", immediate);
