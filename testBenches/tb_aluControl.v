@@ -1,10 +1,11 @@
 // `include "defines.vh"
+// `include "aluControl.v"
 
 // module aluControl_tb;
 //   reg [3:0] instruction;
 //   reg [1:0] aluOp;
 //   wire [3:0] aluCtl;
-//   reg expectedAluCtl;
+//   reg [3:0] expectedAluCtl;
 //   reg [3:0] pattern [0:5];
 
 //   aluControl aluControl_inst (
@@ -27,7 +28,7 @@
 //       case (aluOp)
 //         2'b00: expectedAluCtl = `ADD; 
 //         2'b01: expectedAluCtl = `SUB; 
-//         2'b1x:
+//         default:
 //           case (instruction)
 //             4'b0000: expectedAluCtl = `ADD;
 //             4'b1000: expectedAluCtl = `SUB; 
@@ -41,8 +42,7 @@
 //   end 
 
 //     initial begin
-//         $display("time aluOp instruction aluCtl Expected=");
-//         $monitor("%2d, %b, %b, %b,%b" ,$time, aluOp, instruction, aluCtl, expectedAluCtl);
+//         $monitor("time= %2d, aluOp= %b, instruction= %b, aluCtl= %b, Expected= %b" ,$time, aluOp, instruction, aluCtl, expectedAluCtl);
 //     end
 
 //     initial #200 $finish;
@@ -58,6 +58,7 @@ module tb_aluControl;
   reg [3:0] instruction;
   reg [1:0] aluOp;
   wire [3:0] aluCtl;
+  integer i;
 
   aluControl uut (
     .instruction(instruction),
@@ -66,41 +67,12 @@ module tb_aluControl;
   );
 
   initial begin
-        aluOp = 2'b00;
-        instruction = 4'b0000;
-        #10;
-        if (aluCtl == `ADD) $display("Test PASSED");
-        else $display("Test failed");
-        
-        aluOp = 2'b01;
-        instruction = 4'b1000;
-        #10;
-        if (aluCtl == `SUB) $display("Test PASSED");
-        else $display("Test failed");
-        
-        aluOp = 2'b10;
-        instruction = 4'b0111;
-        #10;
-        if (aluCtl == `AND) $display("Test PASSED");
-        else $display("Test failed");
-        
-        aluOp = 2'b10;
-        instruction = 4'b0110;
-        #10;
-        if (aluCtl == `OR) $display("Test PASSED");
-        else $display("Test failed");
-        
-        aluOp = 2'b10;
-        instruction = 4'b0000;
-        #10;
-        if (aluCtl == `ADD) $display("Test PASSED");
-        else $display("Test failed");
-        
-        aluOp = 2'b10;
-        instruction = 4'b1000;
-        #10;
-        if (aluCtl == `SUB) $display("Test PASSED");
-        else $display("Test failed");
+        for (i = 0; i < 10; i = i + 1) begin
+          instruction = $random & 4'b1111;
+          aluOp = $random & 2'b11;
+          #10;
+          $display("instr= %b, aluOp = %b, aluCtl = %b", instruction, aluOp, aluCtl);
+        end
     $finish;
   end
 

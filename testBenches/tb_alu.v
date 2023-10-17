@@ -9,9 +9,7 @@ module tb_alu;
    wire z;
    reg [`WORDSIZE -1:0] expected_res;
 
-   alu #(
-   (`WORDSIZE) // WORDSIZE(`WORSIZE) not resolved error in vivado
-) UUT(
+   alu #((`WORDSIZE)) uut(
        .in1(a),
        .in2(b),
        .ctl(cntrl),
