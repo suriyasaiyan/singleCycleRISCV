@@ -24,7 +24,7 @@
 `include "defines.vh"
 
 module aluControl(
-  input [3:0] instruction,
+  input [3:0] instruction, //insturction[30, 14, 13, 12]
   input [1:0] aluOp,
   output reg [3:0] aluCtl
 );
@@ -34,7 +34,7 @@ module aluControl(
       2'b00: aluCtl = `ADD;
       2'b01: aluCtl = `SUB;
       default: 
-        case (instruction)
+        case (instruction) // below all insts are R
           4'b0000: aluCtl = `ADD;
           4'b1000: aluCtl = `SUB;
           4'b0111: aluCtl = `AND;

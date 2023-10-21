@@ -46,8 +46,10 @@ module registerFile #(
             registerFile[writeReg] <= writeData;
         
     end
+    always @(*) begin
 
-    assign readData1 = registerFile[readReg1_addr];
-    assign readData2 = registerFile[readReg2_addr];
-
+        readData1 = registerFile[readReg1_addr];
+        readData2 = registerFile[readReg2_addr];
+    end 
+    
 endmodule
